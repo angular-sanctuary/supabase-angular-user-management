@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   supabaseUrl: "YOUR_SUPBASE_URL",
-  supbaseKey: "YOUR_SUPABASE_KEY"
+  supabaseKey: "YOUR_SUPABASE_KEY"
 };
 
 /*
