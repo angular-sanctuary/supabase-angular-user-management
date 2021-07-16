@@ -6,6 +6,12 @@ import {Session} from "@supabase/supabase-js";
   selector: 'app-account',
   template: `
     <div class="form-widget">
+
+      <app-avatar
+        [avatarUrl]="this.profile?.avatar_url"
+        (upload)="updateProfile(username.value, website.value, $event)">
+      </app-avatar>
+
       <div>
         <label for="email">Email</label>
         <input id="email" type="text" [value]="session?.user?.email" disabled/>
@@ -28,8 +34,6 @@ import {Session} from "@supabase/supabase-js";
           [value]="profile?.website ?? ''"
         />
       </div>
-
-      <app-avatar [avatarUrl]="this.profile?.avatar_url" (upload)="updateProfile(username.value, website.value, $event)"></app-avatar>
 
       <div>
         <button
