@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AuthChangeEvent, createClient, Session, SupabaseClient} from '@supabase/supabase-js';
-import {environment} from "../environments/environment";
+import { AuthChangeEvent, createClient, Session, SupabaseClient } from '@supabase/supabase-js';
+import { environment } from '../environments/environment';
 
 export interface Profile {
   username: string;
@@ -9,7 +9,7 @@ export interface Profile {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
@@ -39,7 +39,7 @@ export class SupabaseService {
   }
 
   signIn(email: string) {
-    return this.supabase.auth.signIn({email});
+    return this.supabase.auth.signIn({ email });
   }
 
   signOut() {
@@ -50,8 +50,8 @@ export class SupabaseService {
     const update = {
       ...profile,
       id: this.user?.id,
-      updated_at: new Date()
-    }
+      updated_at: new Date(),
+    };
 
     return this.supabase.from('profiles').upsert(update, {
       returning: 'minimal', // Don't return the value after inserting
@@ -63,8 +63,6 @@ export class SupabaseService {
   }
 
   uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage
-      .from('avatars')
-      .upload(filePath, file);
+    return this.supabase.storage.from('avatars').upload(filePath, file);
   }
 }

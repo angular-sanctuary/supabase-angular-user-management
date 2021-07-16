@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SupabaseService} from "./supabase.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SupabaseService } from './supabase.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-avatar',
@@ -12,11 +12,12 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
         alt="Avatar"
         class="avatar image"
         style="height: 150px; width: 150px"
-      ></div>
+      />
+    </div>
     <div *ngIf="!_avatarUrl" class="avatar no-image" style="height: 150px; width: 150px"></div>
     <div style="width: 150px">
       <label class="button primary block" for="single">
-        {{uploading ? 'Uploading ...' : 'Upload'}}
+        {{ uploading ? 'Uploading ...' : 'Upload' }}
       </label>
       <input
         style="visibility: hidden;position: absolute"
@@ -38,19 +39,15 @@ export class AvatarComponent {
     if (url) {
       this.downloadImage(url);
     }
-  };
+  }
 
   @Output() upload = new EventEmitter<string>();
 
-  constructor(
-    private readonly supabase: SupabaseService,
-    private readonly dom: DomSanitizer
-  ) {
-  }
+  constructor(private readonly supabase: SupabaseService, private readonly dom: DomSanitizer) {}
 
   async downloadImage(path: string) {
     try {
-      const {data} = await this.supabase.downLoadImage(path);
+      const { data } = await this.supabase.downLoadImage(path);
       this._avatarUrl = this.dom.bypassSecurityTrustResourceUrl(URL.createObjectURL(data));
     } catch (error) {
       console.error('Error downloading image: ', error.message);
